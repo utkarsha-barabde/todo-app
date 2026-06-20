@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My To-Do App</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+
+    .add-form {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .add-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .add-form input:focus { border-color: #6c63ff; }
+
+    .add-form button {
+      padding: 12px 20px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-form button:hover { background: #574fd6; }
+
+    .task-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .task {
+      border-radius: 12px;
+      background: #f8f8ff;
+      border: 1px solid #ebebff;
+      overflow: hidden;
+    }
+
+    .task.done-task { background: #f4f4f4; border-color: #e0e0e0; }
+
+    .task-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .task-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a2e;
+      flex: 1;
+    }
+
+    .done-task .task-title {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .task-actions { display: flex; gap: 8px; margin-left: 12px; }
+
+    .btn-done {
+      padding: 6px 12px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-done:hover { background: #c8e6c9; }
+
+    .btn-delete {
+      padding: 6px 12px;
+      background: #fdecea;
+      color: #c62828;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-delete:hover { background: #ffcdd2; }
+
+    /* Subtasks */
+    .subtasks {
+      padding: 0 16px 14px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .subtask {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e8e8f0;
+    }
+
+    .subtask-title {
+      font-size: 14px;
+      color: #333;
+      flex: 1;
+    }
+
+    .subtask.done-subtask .subtask-title {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+
+    .subtask-actions { display: flex; gap: 6px; margin-left: 8px; }
+
+    .btn-sub-done {
+      padding: 4px 9px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-sub-done:hover { background: #c8e6c9; }
+
+    .btn-sub-delete {
+      padding: 4px 9px;
+      background: #fdecea;
+      color: #c62828;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-sub-delete:hover { background: #ffcdd2; }
+
+    .add-subtask-form {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .add-subtask-form input {
+      flex: 1;
+      padding: 7px 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      background: white;
+    }
+
+    .add-subtask-form input:focus { border-color: #6c63ff; }
+
+    .add-subtask-form button {
+      padding: 7px 12px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .add-subtask-form button:hover { background: #574fd6; }
+
+    .empty {
+      text-align: center;
+      color: #aaa;
+      font-size: 15px;
+      padding: 32px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My To-Do App</h1>
+
+    <form class="add-form" action="/add" method="POST">
+      <input type="text" name="title" placeholder="Add a new task..." required autofocus />
+      <button type="submit">+ Add</button>
+    </form>
+
+    <div class="task-list">
+      {% if tasks %}
+        {% for task in tasks %}
+          <div class="task {% if task.done %}done-task{% endif %}">
+            <div class="task-header">
+              <span class="task-title">{{ task.title }}</span>
+              <div class="task-actions">
+                {% if not task.done %}
+                  <a class="btn-done" href="/done/{{ loop.index0 }}">Done</a>
+                {% endif %}
+                <a class="btn-delete" href="/delete/{{ loop.index0 }}">Delete</a>
+              </div>
+            </div>
+
+            {% set ti = loop.index0 %}
+            <div class="subtasks">
+              {% for subtask in task.subtasks %}
+                <div class="subtask {% if subtask.done %}done-subtask{% endif %}">
+                  <span class="subtask-title">{{ subtask.title }}</span>
+                  <div class="subtask-actions">
+                    {% if not subtask.done %}
+                      <a class="btn-sub-done" href="/done_subtask/{{ ti }}/{{ loop.index0 }}">Done</a>
+                    {% endif %}
+                    <a class="btn-sub-delete" href="/delete_subtask/{{ ti }}/{{ loop.index0 }}">Delete</a>
+                  </div>
+                </div>
+              {% endfor %}
+
+              <form class="add-subtask-form" action="/add_subtask/{{ ti }}" method="POST">
+                <input type="text" name="subtask_title" placeholder="Add a subtask..." />
+                <button type="submit">+ Sub</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="empty">No tasks yet. Add one above!</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

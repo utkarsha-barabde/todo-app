@@ -1,0 +1,43 @@
+[
+  {
+    "title": "Build a CLI app",
+    "done": false,
+    "subtasks": [
+      {
+        "title": "Monday tasks",
+        "done": false
+      },
+      {
+        "title": "Tuesday tasks",
+        "done": false
+      }
+    ]
+  },
+  {
+    "title": "Plan my week",
+    "done": false,
+    "subtasks": []
+  },
+  {
+    "title": "Interview Prep",
+    "done": false,
+    "subtasks": [
+      {
+        "title": "1. Understanding job - Friday",
+        "done": false
+      },
+      {
+        "title": "2. Preparing for behavioral ques - Satuday",
+        "done": false
+      },
+      {
+        "title": "3. Mock interview -1",
+        "done": false
+      },
+      {
+        "title": "4. Mock Interview - 2",
+        "done": false
+      }
+    ]
+  }
+]
